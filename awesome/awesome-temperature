@@ -1,0 +1,25 @@
+#!/bin/sh
+#	
+while true 
+do
+    warm=60
+    hot=70
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+	    temp=`cat /proc/acpi/thermal_zone/THM/temperature | awk '/temperature:/ {print$2}'`	
+	    if [ ${temp} -lt ${warm} ]; then
+		echo "0 widget_tell mystatusbar temperature fg #33ff44"
+	    elif [ ${temp} -lt ${hot} ]; then
+		echo "0 widget_tell mystatusbar temperature fg #ffff22"
+	    else 
+		echo "0 widget_tell mystatusbar temperature fg #ff4500"
+	    fi
+	    echo "0 widget_tell mystatusbar temperature text [temp: ${temp} C]"
+            echo "" # an empty line flushes data inside awesome
+            sleep 10
+        done | awesome-client
+    else
+        sleep 2
+    fi
+done

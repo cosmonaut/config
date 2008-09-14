@@ -1,0 +1,34 @@
+#!/bin/sh
+#	
+while true 
+do
+    declare -i powint
+    declare -i limit
+    limit=30
+    full=`cat /proc/acpi/battery/BAT0/info | awk '/design capacity:/ {print$3}'`
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+	    ac=`cat /proc/acpi/ac_adapter/AC/state | awk '/state/ {print$2}'`
+	    ol='on-line'
+	    cur=`cat /proc/acpi/battery/BAT0/state | awk '/remaining capacity:/ {print$3}'`
+	    power=`echo ${cur} ${full} | awk '{printf "%.1f", $1/$2 * 100}'`
+	    powint=`echo ${power} | cut -d . -f 1`
+	    if [ ${ac} = ${ol} ]; then
+		echo "0 widget_tell mystatusbar battery fg #3388cc"
+		echo "0 widget_tell mystatusbar battery text [bat: AC(${power}%)]"
+	    else	  
+		if [ ${powint} -lt ${limit} ]; then
+		    echo "0 widget_tell mystatusbar battery fg #ff4500"
+		else
+		    echo "0 widget_tell mystatusbar battery fg #33ff44"
+		fi
+		echo "0 widget_tell mystatusbar battery text [bat: ${power}%]"
+	    fi
+            echo "" # an empty line flushes data inside awesome
+            sleep 1
+        done | awesome-client
+    else
+        sleep 1
+    fi
+done

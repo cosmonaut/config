@@ -1,25 +1,45 @@
 #!/bin/sh
-#	
+#
+max0=`cat /proc/acpi/thermal_zone/THM0/trip_points | awk '/critical/ {print$3}'`
+max1=`cat /proc/acpi/thermal_zone/THM1/trip_points | awk '/critical/ {print$3}'`
+warm0=`echo ${max0} | awk '{printf "%.0f", $1/2}'` 
+hot0=`echo ${max0} | awk '{printf "%.0f", $1*(3/4)}'` 
+warm1=`echo ${max1} | awk '{printf "%.0f", $1/2}'` 
+hot1=`echo ${max1} | awk '{printf "%.0f", $1*(3/4)}'` 
 while true 
 do
-    warm=60
-    hot=70
     if [ -S ~/.awesome_ctl.0 ]; then
         while true
         do
-	    temp=`cat /proc/acpi/thermal_zone/THM/temperature | awk '/temperature:/ {print$2}'`	
-	    if [ ${temp} -lt ${warm} ]; then
-		echo "0 widget_tell mystatusbar temperature fg #33ff44"
-	    elif [ ${temp} -lt ${hot} ]; then
-		echo "0 widget_tell mystatusbar temperature fg #ffff22"
+	    temp0=`cat /proc/acpi/thermal_zone/THM0/temperature | awk '/temperature:/ {print$2}'`	
+            temp1=`cat /proc/acpi/thermal_zone/THM1/temperature | awk '/temperature:/ {print$2}'`	
+	    
+            temp0_scaled=`echo ${temp0} ${max0} | awk '{printf "%.1f", ($1/$2)*100}'`
+            temp1_scaled=`echo ${temp1} ${max1} | awk '{printf "%.1f", ($1/$2)*100}'`
+            
+            if [ ${temp0} -lt ${warm0} ]; then
+		echo "0 widget_tell mystatusbar temperature fg temp0 #33ff44"
+	    elif [ ${temp0} -lt ${hot0} ]; then
+		echo "0 widget_tell mystatusbar temperature fg temp0 #ffff22"
 	    else 
-		echo "0 widget_tell mystatusbar temperature fg #ff4500"
+		echo "0 widget_tell mystatusbar temperature fg temp0 #ff4500"
 	    fi
-	    echo "0 widget_tell mystatusbar temperature text [temp: ${temp} C]"
+
+            if [ ${temp1} -lt ${warm1} ]; then
+		echo "0 widget_tell mystatusbar temperature fg temp1 #33ff44"
+	    elif [ ${temp1} -lt ${hot1} ]; then
+		echo "0 widget_tell mystatusbar temperature fg temp1 #ffff22"
+	    else 
+		echo "0 widget_tell mystatusbar temperature fg temp1 #ff4500"
+	    fi
+
+	    #echo "0 widget_tell mystatusbar temperature text [temp: ${temp} C]"
+            echo "0 widget_tell mystatusbar temperature data temp0 ${temp0_scaled}"
+            echo "0 widget_tell mystatusbar temperature data temp1 ${temp1_scaled}"
             echo "" # an empty line flushes data inside awesome
             sleep 10
         done | awesome-client
     else
-        sleep 2
+        sleep 1
     fi
 done

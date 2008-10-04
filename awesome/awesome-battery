@@ -4,6 +4,7 @@ while true
 do
     declare -i powint
     declare -i limit
+    blink=0
     limit=30
     full=`cat /proc/acpi/battery/BAT0/info | awk '/design capacity:/ {print$3}'`
     if [ -S ~/.awesome_ctl.0 ]; then
@@ -15,15 +16,24 @@ do
 	    power=`echo ${cur} ${full} | awk '{printf "%.1f", $1/$2 * 100}'`
 	    powint=`echo ${power} | cut -d . -f 1`
 	    if [ ${ac} = ${ol} ]; then
-		echo "0 widget_tell mystatusbar battery fg #3388cc"
-		echo "0 widget_tell mystatusbar battery text [bat: AC(${power}%)]"
+		echo "0 widget_tell mystatusbar battery fg bat #3388cc"
+                echo "0 widget_tell mystatusbar battery bordercolor bat #000000"
+		echo "0 widget_tell mystatusbar battery data bat ${power}"
 	    else	  
 		if [ ${powint} -lt ${limit} ]; then
-		    echo "0 widget_tell mystatusbar battery fg #ff4500"
+		    echo "0 widget_tell mystatusbar battery fg bat #ff4500"                 
+                    if [ ${blink} == 1 ]; then
+                        echo "0 widget_tell mystatusbar battery bordercolor bat #000000"
+                        blink=0
+                    else
+                        echo "0 widget_tell mystatusbar battery bordercolor bat #ff4500"
+                        blink=1
+                    fi
 		else
-		    echo "0 widget_tell mystatusbar battery fg #33ff44"
+		    echo "0 widget_tell mystatusbar battery fg bat #33ff44"
+                    blink=0
 		fi
-		echo "0 widget_tell mystatusbar battery text [bat: ${power}%]"
+		echo "0 widget_tell mystatusbar battery data bat ${power}"
 	    fi
             echo "" # an empty line flushes data inside awesome
             sleep 1

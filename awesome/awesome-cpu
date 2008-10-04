@@ -1,0 +1,36 @@
+#!/bin/sh
+#	
+prev_user=0
+prev_nice=0
+prev_system=0
+prev_idle=0
+while true 
+do
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+            #echo "hai!"
+            user=`cat /proc/stat | awk '/cpu / {print$2}'`
+            nice=`cat /proc/stat | awk '/cpu / {print$3}'`
+            system=`cat /proc/stat | awk '/cpu / {print$4}'`
+            idle=`cat /proc/stat | awk '/cpu / {print$5}'`
+            
+            user_diff=$((${user} - ${prev_user}))
+            nice_diff=$((${nice} - ${prev_nice}))
+            system_diff=$((${system} - ${prev_system}))
+            idle_diff=$((${idle} - ${prev_idle}))
+
+            cpu_usage=`echo ${user_diff} ${nice_diff} ${system_diff} ${idle_diff} | awk '{printf "%.1f", 100 * (($1 + $2 + $3)/$4)}'`
+
+            echo "0 widget_tell mystatusbar cpu data cpu_per ${cpu_usage}"
+            echo "" #empty line flush data in awesome
+            prev_user=${user}
+            prev_nice=${nice}
+            prev_system=${system}
+            prev_idle=${idle}
+            sleep 1
+        done | awesome-client
+    else
+        sleep 1
+    fi
+done

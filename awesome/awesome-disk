@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+while true 
+do
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+            disk_use=`echo $(df) | awk '{printf "%d", $12}'`
+
+            echo "0 widget_tell mystatusbar disk data usage ${disk_use}"
+            echo "" # an empty line flushes data inside awesome
+            sleep 3600
+        done | awesome-client
+    else
+        sleep 1
+    fi
+done

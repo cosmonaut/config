@@ -1,0 +1,24 @@
+#!/bin/sh
+#	
+while true 
+do
+    # Change this if you upgrade memory dummy
+    memtotal=2036652
+    swaptotal=2031608
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+	    memfree=`cat /proc/meminfo | awk '/MemFree/ {print$2}'`
+            swapfree=`cat /proc/meminfo | awk '/SwapFree/ {print$2}'`
+            pctmem=`echo ${memfree} ${memtotal} | awk '{printf "%.1f", 100 - ($1/$2 * 100)}'`
+            pctswap=`echo ${swapfree} ${swaptotal} | awk '{printf "%.1f", 100 - ($1/$2 * 100)}'`
+
+            echo "0 widget_tell mystatusbar memory data mem ${pctmem}"
+            echo "0 widget_tell mystatusbar memory data swap ${pctswap}"
+            echo "" # an empty line flushes data inside awesome
+            sleep 1
+        done | awesome-client
+    else
+        sleep 1
+    fi
+done

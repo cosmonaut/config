@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+prev_rxeth=0
+prev_rxwlan=0
+prev_txeth=0
+prev_txwlan=0
+prev_time=0
+while true 
+do
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+            rxeth=`cat /proc/net/dev | awk '/eth0/ {print$2}'`
+            rxwlan=`cat /proc/net/dev | awk '/wlan0/ {print$2}'`
+            txeth=`cat /proc/net/dev | awk '/eth0/ {print$10}'`
+            txwlan=`cat /proc/net/dev | awk '/wlan0/ {print$10}'`
+            time=`cat /proc/uptime | awk '{print$1}'`
+
+            #echo ${rxeth} ${txeth} ${rxwlan} ${txwlan} ${time}
+
+            rxeth_diff=$((${rxeth} - ${prev_rxeth}))
+            rxwlan_diff=$((${rxwlan} - ${prev_rxwlan}))
+            txeth_diff=$((${txeth} - ${prev_txeth}))
+            txwlan_diff=$((${txwlan} - ${prev_txwlan}))
+            time_diff=`echo ${time} ${prev_time} | awk '{printf "%.1f", $1 - $2}'`
+
+            rxrate=`echo ${rxeth_diff} ${rxwlan_diff} ${time_diff} | awk '{printf "%.1f", (($1 + $2)/$3)}'`
+            txrate=`echo ${txeth_diff} ${txwlan_diff} ${time_diff} | awk '{printf "%.1f", (($1 + $2)/$3)}'`
+
+            echo "0 widget_tell mystatusbar netrx text ${rxrate}"
+            echo "0 widget_tell mystatusbar nettx text ${txrate}"
+            echo "0 widget_tell mystatusbar net data rx ${rxrate}"
+            echo "0 widget_tell mystatusbar net data tx ${txrate}"
+            
+            prev_rxeth=${rxeth}
+            prev_rxwlan=${rxwlan}
+            prev_txeth=${txeth}
+            prev_txwlan=${txwlan}
+            prev_time=${time}
+            
+            echo "" # empty line to flush awesome
+            sleep 0.992
+        done | awesome-client
+    else
+        sleep 0.992
+    fi
+done

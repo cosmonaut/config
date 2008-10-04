@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+while true 
+do
+    if [ -S ~/.awesome_ctl.0 ]; then
+        while true
+        do
+	    wi=`cat /proc/net/wireless | awk '/wlan0:/ {print$3}'`
+            
+            echo "0 widget_tell mystatusbar wlan data link ${wi}"
+            echo "" # an empty line flushes data inside awesome
+            sleep 1
+        done | awesome-client
+    else
+        sleep 1
+    fi
+done

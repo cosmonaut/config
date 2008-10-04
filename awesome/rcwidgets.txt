@@ -1,0 +1,168 @@
+textbox nettitle
+        {
+            text = " net:"
+        }
+        progressbar wlan
+        {
+            vertical = true
+            width = 7
+            gap = 1
+            border_width = 1
+            data link
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+        }
+        textbox netrx
+        {
+            width = 50
+            text = "test"
+            style
+            {
+                fg = "#33ff44"
+            }
+        }
+        textbox nettx
+        {
+            width = 50
+            text = "test"
+            style
+            {
+                fg = "#ff4500"
+            }
+        }
+        graph net
+        {
+            grow = right
+            width = 60
+            bordercolor = "#000000"
+            data tx
+            {
+                draw_style = "line"
+                fg = "#ff4500"
+                vertical_gradient = false
+                scale = true
+            }
+            data rx
+            {
+                draw_style = "line"
+                fg = "#33ff44"
+                vertical_gradient = false
+                scale = true
+            }
+        }
+        textbox cputitle
+        {
+            text = " cpu:"
+            width = 40
+        }
+        graph cpu
+        {
+            grow = right
+            bordercolor = "#000000"
+            width = 60
+            data cpu_per
+            {
+                fg = "#BBBBBB"
+                fg_center = "#DDDDDD"
+                fg_end = "#FFFFFF"
+                vertical_gradient = True
+            }
+        }
+        textbox memtitle
+        {
+            text = " mem:"
+            width = 40
+        }
+        progressbar memory
+        {
+            vertical = true
+            width = 16
+            gap = 1
+            border_width = 1
+            data mem
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+            data swap
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+        }
+        textbox disktitle
+        {
+            text = " dsk:"
+            width = 40
+        }
+        progressbar disk
+        {
+            vertical = true
+            width = 7
+            gap = 1
+            border_width = 1
+            data usage
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+        }
+        textbox battitle
+        {
+            text = " bat:"
+            width = 40
+        }
+        progressbar battery
+        {
+            vertical = true
+            width = 8
+            gap = 1
+            border_width = 1
+            data bat
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+        }
+        textbox tmptitle
+        {
+            text = " tmp:"
+            width = 40
+        }
+        progressbar temperature
+        {
+            vertical = true
+            width = 16
+            gap = 1
+            border_width = 1
+            data temp0
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+            data temp1
+            {
+                bordercolor = "#000000"
+                fg = "#CCCCCC"
+            }
+
+        }
+        textbox clock
+        {
+            width = 154
+            text_align = right
+        }
+        iconbox logo
+        {
+            #image = "/usr/local/share/awesome/icons/awesome16.png"
+            image = "/home/nnell/awesome16w.png"
+            mouse
+            {
+                button = "1"
+                command = "spawn"
+                arg = "exec urxvt -e \"man awesome\""
+            }
+        }
+    }

@@ -1,23 +1,23 @@
-emacs*ReverseVideo: on
-emacs.font: -windows-proggysquare-medium-r-normal--11-0-96-96-c-0-iso8859-1
-!Emacs.FontSet-0: -windows-proggysquare-medium-r-normal--0-0-96-96-c-0-iso8859-1
+xterm*visualBell: false
+emacs*reverseVideo: on
+emacs.font: -windows-proggysquare-medium-r-normal--11-80-96-96-c-70-iso8859-1
 ! use xft for drawing fonts
-!urxvt.font: xft:Bitstream Vera Sans Mono-8.5
-urxvt.font: -windows-proggysquare-medium-r-normal--11-0-96-96-c-0-iso8859-1
-urxvt.boldFont: -windows-proggysquare-medium-r-normal--11-0-96-96-c-0-iso8859-1
+! urxvt.font: xft:Bitstream Vera Sans Mono-7
+urxvt.font: -windows-proggysquare-medium-r-normal--11-80-96-96-c-70-iso8859-1
+urxvt.boldFont: -windows-proggysquare-medium-r-normal--11-80-96-96-c-70-iso8859-1
 urxvt.background: black
 urxvt.foreground: white
-! make a scrollbar thats nearly black
+! make a scrollbar that is nearly black
 urxvt*scrollBar:     false
 urxvt*scrollBar_floating:    true
 urxvt*scrollBar_right:   false
 urxvt*scrollColor:       #202020
-urxvt*termName:     rxvt-unicode
-urxvt*urllauncher:           firefox
+urxvt*termName:          xterm
+urxvt*urlLauncher:       firefox
 ! matcher.button # 3 is a right-click
-urxvt*matcher.button:        3
-urxvt*saveLines:              8192
-urxvt.perl-ext-common:         default,matcher,tabbed
+urxvt*matcher.button:    3
+urxvt*saveLines:         8192
+urxvt.perl-ext-common:   default,matcher!, tabbed
 ! black 
 urxvt*color0:      #222222
 urxvt*color8:      #666666
@@ -46,9 +46,8 @@ urxvt*color15:      #FFFFFF
 urxvt*cursorColor:       #d8d8d8
 
 urxvt*urgentOnBell: true
-urxvt*secondaryScroll: false
 
-URxvt.tabbed.tabbar-fg: 4
-URxvt.tabbed.tabbar-bg: 0
-URxvt.tabbed.tab-fg:    0
-URxvt.tabbed.tab-bg:    4
+!URxvt.tabbed.tabbar-fg: 4
+!URxvt.tabbed.tabbar-bg: 0
+!URxvt.tabbed.tab-fg:    0
+!URxvt.tabbed.tab-bg:    4

@@ -1,0 +1,4 @@
+##escape seq ctrl-shift 6
+escape ^]^]
+##annoying flash off
+vbell off

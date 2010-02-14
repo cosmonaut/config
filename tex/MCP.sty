@@ -1,0 +1,81 @@
+%+-----------------------------------+
+%Nico's default style file (02-13-2010)
+%insert into document with \usepackage{MCP}
+%End of Line
+%+-----------------------------------+
+
+
+%===== Font and graphic packages =================================
+%\usepackage{eucal}
+\usepackage{amsmath}
+\usepackage{amsfonts}        	%needed for odd math signs!
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}           %inserting images!
+\usepackage{epstopdf}		%Easy way to handle eps images
+\usepackage{multirow}           %multirow cells in tables.
+\usepackage{float}              %better figure placement with H
+\usepackage{subfigure}          %multiple figures in one figure!
+
+
+%===== Margin and page style =====================================
+\paperwidth = 8.5in
+\paperheight = 11.0in
+\oddsidemargin = 0.0in		%The following lines set page margins
+\evensidemargin = 0.0in
+\textwidth = 6.5in
+\headheight = 0.0in
+\topmargin = 0.0in
+\textheight = 9.0in
+\voffset = 0.0in
+\hoffset = 0.0in
+\topmargin = 0.0in
+\headsep = 0.0in
+\marginparsep = 0in
+%\footskip = 0.0in
+\pagestyle{plain}
+\setcounter{secnumdepth}{2}     %section counting depth
+\def\baselinestretch{1}         %spacing between lines (1 is regular, 2 is double, 1.5 is 1 and a half etc...
+
+
+%===== Definitions theorems lemmas etc.... ============================
+\theoremstyle{plain}
+\newtheorem{thm}{T\textbf{\textsc{heorem}}} %[section]
+\newtheorem{cor}{C\textbf{\textsc{orollary}}}
+\newtheorem{lem}{L\textbf{\textsc{emma}}}
+%\newtheorem{defn}{D\textbf{\textsc{efinition}}}
+\newtheorem{prop}{P\textbf{\textsc{roposition}}} 
+\newtheorem{conj}{C\textbf{\textsc{onjecture}}}
+\newtheorem{exmp}{E\textbf{\textsc{xample}}}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark} 
+\newtheorem*{note}{Note}
+
+\theoremstyle{definition}
+\newtheorem{defn}{D\textbf{\textsc{efinition}}}
+
+
+%\newtheorem{cor}[thm]{Corollary}
+%\newtheorem{lem}[thm]{Lemma}
+%\newtheorem{defn}[thm]{Definition}
+%\renewcommand{\qedsymbol}{{\em Q.E.D.}}
+
+
+%\newtheorem{defn}{Definition}
+%\newtheorem{thm}{Theorem}
+%\newtheorem{lem}{Lemma}
+%\newtheorem{cor}{Corollary}
+
+%\usepackage{indentfirst}            %indents 1st paragraph(uncomment if you want this)
+%\the\font				%??
+
+%===== Chess ==================================================
+%\usepackage{chessboard}
+%\usepackage{chessfss}
+%\usepackage[LSB,LSBC3,LSBC5,T1]{fontenc}
+%\usepackage{skak}
+%\def\newboard{Pa2,Pb2,Pc2,Pd2,Pe2,Pf2,Pg2,Ph2,Ra1,Nb1,Bc1,Qd1,Ke1,Bf1,Ng1,Rh1,pa7,pb7,pc7,pd7,pe7,pf7,pg7,ph7,ra8,nb8,bc8,qd8,ke8,bf8,ng8,rh8}
+
+
+\endinput

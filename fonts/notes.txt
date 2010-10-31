@@ -1,8 +1,13 @@
-use the command `mkfontdir` in the directory where the font files are placed (in .gz format).
-then,
-xset fp+ /full/path/to/font/directory   
-xset -q (for a quick check of the directory)
-xset fp rehash (tell X it has the new font)
-
 xfd -fn <font name> (to see all of the characters)
 xlsfonts | grep <font name> (to make sure it is there)
+
+Installation:
+
+install -m644 *.pcf.gz    $startdir/pkg/usr/share/fonts/misc || return 1
+install -m644 *.ttf       $startdir/pkg/usr/share/fonts/TTF  || return 1
+
+
+mkfontscale /usr/share/fonts/misc
+mkfontdir /usr/share/fonts/misc
+fc-cache /usr/share/fonts/misc
+xset fp rehash
